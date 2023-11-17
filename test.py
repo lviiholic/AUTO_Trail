@@ -1,4 +1,5 @@
 import sqlite3
+from sqlite3 import Error
 
 def generate_template(template, data):
     filled_template = template.format(**data)
@@ -6,7 +7,11 @@ def generate_template(template, data):
 
 
 def get_data_from_database(trail_id):
-    conn = sqlite3.connect('hiking.db')
+    try:
+        conn = sqlite3.connect('data/hiking.db')
+    except Error as e:
+        print(e)
+    
     cursor = conn.cursor()
 
     # 执行 SQL
@@ -17,7 +22,7 @@ def get_data_from_database(trail_id):
     WHERE t.trail_id = ?
 """, (trail_id,))
     row = cursor.fetchone()
-
+    print(row)
     # 将查询结果转换为字典形式
     data = {
         'trail_name': row[0],
