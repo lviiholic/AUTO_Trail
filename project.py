@@ -112,7 +112,7 @@ with open('trail.csv', 'r') as file:
 
         data.append((trail_id, park_id, trail_name, region, difficulty, star, surface, gradient, length, time, summary))
 
-    # Insert the rows into the 1
+    # Insert the rows into the table
     cursor.executemany('''INSERT INTO Trail (trail_id, park_id, trail_name, region, difficulty, star, surface, gradient, length, time, summary)
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', data)
 
