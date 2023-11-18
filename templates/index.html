@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HIKING PROJ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to HIKING PROJ!</h1>
+        <p>Please select an option from the sidebar.</p>
+        <form method="POST">
+            <label for="trails">Choose a Trail:</label>
+            <select id="trails" name="trails">
+                {% for row in rows %}
+                    <option value="{{ row[0] }}">{{ row[0] }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <button type="submit" onclick="getData()">Submit</button>
+        </form>
+
+        <h1>Result:</h1>
+        <p>{{ result }}</p>
+    </div>
+
+
+    <script>
+        function getData() {
+            //var dropdownValue = document.getElementById("trails").value;
+            //alert("Selected value: " + dropdownValue);
+        }
+    </script>
+</body>
+</html>
