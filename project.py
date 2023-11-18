@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 # Create a database connection
-conn = sqlite3.connect('hiking.db')
+conn = sqlite3.connect('data/hiking.db')
 cursor = conn.cursor()
 
 # Create the Park table
@@ -43,13 +43,13 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS Rescue (
 
 # Create the SQL_query table
 cursor.execute('''CREATE TABLE IF NOT EXISTS SQL_query (
-    query_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    query_id TEXT PRIMARY KEY NOT NULL,
     query TEXT NOT NULL
 )''')
 
 # Create the Template table
 cursor.execute('''CREATE TABLE IF NOT EXISTS Template (
-    template_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    template_id TEXT PRIMARY KEY NOT NULL,
     template TEXT NOT NULL
 )''')
 
@@ -57,10 +57,12 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS Template (
 conn.commit()
 conn.close()
 
-conn = sqlite3.connect('hiking.db')
+# Insert data into table 
+
+conn = sqlite3.connect('data/hiking.db')
 cursor = conn.cursor()
 
-with open('park.csv', 'r') as file:
+with open('csv/park.csv', 'r') as file:
     csv_reader = csv.reader(file)
     next(csv_reader)  # Skip the header row if it exists
 
@@ -71,7 +73,7 @@ with open('park.csv', 'r') as file:
     cursor.executemany('''INSERT INTO Park (park_id, park_name, area)
                           VALUES (?, ?, ?)''', data)
 
-with open('rescue.csv', 'r') as file:
+with open('csv/rescue.csv', 'r') as file:
     csv_reader = csv.reader(file)
     next(csv_reader)  # Skip the header row if it exists
 
@@ -91,7 +93,7 @@ with open('rescue.csv', 'r') as file:
     cursor.executemany('''INSERT INTO Rescue (rescue_id, park_id, year, rescue_count, injury_count, death_count)
                           VALUES (?, ?, ?, ?, ?, ?)''', data)
 
-with open('trail.csv', 'r') as file:
+with open('csv/trail.csv', 'r') as file:
     csv_reader = csv.reader(file)
     next(csv_reader)  # Skip the header row if it exists
 
@@ -115,6 +117,17 @@ with open('trail.csv', 'r') as file:
     # Insert the rows into the table
     cursor.executemany('''INSERT INTO Trail (trail_id, park_id, trail_name, region, difficulty, star, surface, gradient, length, time, summary)
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', data)
+
+with open('csv/template.csv', 'r') as file:
+    csv_reader = csv.reader(file)
+    next(csv_reader)  # Skip the header row if it exists
+
+    # Prepare the data for insertion
+    data = [(row[0], row[1]) for row in csv_reader]
+
+    # Insert the rows into the table
+    cursor.executemany('''INSERT INTO Template (template_id, template)
+                          VALUES (?, ?)''', data)
 
 conn.commit()
 conn.close()
