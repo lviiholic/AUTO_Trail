@@ -1,29 +1,21 @@
 import sqlite3
 from sqlite3 import Error
 import pandas as pd
-
-try:
-    conn = sqlite3.connect('data/hiking.db')
-except Error as e:
-    print(e)
-    
+conn = sqlite3.connect('data/hiking.db')
 cursor = conn.cursor()
-
-# 执行 SQL
 cursor.execute("""
-    SELECT *
+    SELECT template
     FROM Template
-""")
-row = cursor.fetchall()
-
-tText = row[0][1]
-print(tText)
+    WHERE template_id = ?
+""",('TP01',))
+row = cursor.fetchone()
+tText = row[0]
 Ta = tText.split()
-print(Ta)
 Fin = ""
+vIndex = 0
 for word in Ta:
-    if word[0]=='{' :
-        Fin = Fin + ' wooohuuuu'
+    if word[0]=='{':
+        print(word)
+        vIndex = vIndex + 1
     else:
         Fin = Fin +" "+ word
-print(Fin)
