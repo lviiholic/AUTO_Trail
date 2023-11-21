@@ -41,16 +41,11 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS Rescue (
     FOREIGN KEY (park_id) REFERENCES Park(park_id)
 )''')
 
-# Create the SQL_query table
-cursor.execute('''CREATE TABLE IF NOT EXISTS SQL_query (
-    query_id TEXT PRIMARY KEY NOT NULL,
-    query TEXT NOT NULL
-)''')
-
 # Create the Template table
 cursor.execute('''CREATE TABLE IF NOT EXISTS Template (
     template_id TEXT PRIMARY KEY NOT NULL,
-    template TEXT NOT NULL
+    template TEXT NOT NULL,
+    sql_text TEXT NOT NULL
 )''')
 
 # Commit the changes and close the connection
@@ -123,11 +118,11 @@ with open('csv/template.csv', 'r') as file:
     next(csv_reader)  # Skip the header row if it exists
 
     # Prepare the data for insertion
-    data = [(row[0], row[1]) for row in csv_reader]
+    data = [(row[0], row[1], row[2]) for row in csv_reader]
 
     # Insert the rows into the table
-    cursor.executemany('''INSERT INTO Template (template_id, template)
-                          VALUES (?, ?)''', data)
+    cursor.executemany('''INSERT INTO Template (template_id, template, sql_text)
+                          VALUES (?, ?, ?)''', data)
 
 conn.commit()
 conn.close()
