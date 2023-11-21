@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import pandas as pd
 
-def templateAny(templateIndex, vA):
+def templateAny(templateIndex):
     try:
         conn = sqlite3.connect('data/hiking.db')
     except Error as e:
@@ -12,7 +12,7 @@ def templateAny(templateIndex, vA):
 
     # 执行 SQL
     cursor.execute("""
-        SELECT template
+        SELECT template, sql_text
         FROM Template
         WHERE template_id = ?
     """,(templateIndex,))
