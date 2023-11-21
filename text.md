@@ -1,7 +1,7 @@
 # Introduction
 For Hongkongers, hiking is a way of life. According to the findings of the “Territory-wide Physical Fitness Survey for the Community” released previously, hiking was among one of the most popular physical activities for members of the public.
 
-![cover](figure/image.png)
+![cover](static/figure/image.png)
 
 However, some people lack safety awareness, resulting in frequent accidents. In recent years, the number of fatal accidents and injuries related to hiking has risen, and the hiking season is starting again.
 
@@ -15,7 +15,7 @@ Hong Kong has a vivid hiking culture. From short nature trails to steep mountain
 
 > **Remarks**: A 5-star system is adopted for assessing the difficulty levels of hiking routes. 5-star represents the most difficult one. The assessment of individual trail conditions, including the “length”, “time required to finish the whole trip”, “gradient” and “surface condition” is tabulated.
 
-![Trail Difficulty Level Reference](figure/image-1.png)
+![Trail Difficulty Level Reference](static/figure/image-1.png)
 
 ---
 
@@ -74,6 +74,8 @@ During the three-year epidemic period, Hong Kong people flocked to country parks
 
 ## Accident Black Spots
 
+Statistics show that the Ma On Shan Country Park is the black spot of mountain climbing rescue accidents, with the number of cases and the number of injuries being the highest among the country parks in Hong Kong.
+
 | **Country Park Name** | **Name of location** |
 |-----------------------|----------------------|
 | Lantau North          | Wong Lung Stream      |
@@ -96,3 +98,5 @@ During the three-year epidemic period, Hong Kong people flocked to country parks
 | Sai Kung West         | Mount Hallowes (Tam Chai Shan) |
 | Shing Mun             | Tai Shing Stream      |
 | Tai Mo Shan           | Tai Shek Stream       |
+
+*Source: https://www.hiking.gov.hk/content/fatal_and_accident_case*
