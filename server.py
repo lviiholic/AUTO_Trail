@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,jsonify
 import sqlite3
-from templateHiking import templateAny
+from templateHiking import templateAny, getVa
 
 app = Flask(__name__)
 
@@ -12,8 +12,11 @@ def index():
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
+    temps=[]
+    vA = getVa('TP02')
+    temps.append(templateAny('TP02',vA[0]))
 
-    return render_template('index.html', rows=rows)
+    return render_template('index.html', rows=rows,temps = temps)
     
 @app.route('/choose',methods = ['POST'])
 def choose():
