@@ -51,3 +51,50 @@ template = "The {trail_name} is located in the {park_name} country park in the {
 # 生成填充后的模板
 filled_template = generate_template(template, data)
 print(filled_template)
+
+
+'''SELECT t.trail_name, p.park_name, t.length, t.time
+FROM Trail AS t
+JOIN Park AS p ON t.park_id = p.park_id,
+WHERE t.trail_name = 'Chi Ma Wan Country Trail'
+'''
+
+'''SELECT
+  SUM(CASE WHEN trail_name LIKE '%MacLehose Trail%' THEN length END) AS sum_of_length1,
+  SUM(CASE WHEN trail_name LIKE '%Wilson Trail%' THEN length END) AS sum_of_length2,
+  SUM(CASE WHEN trail_name LIKE '%Lantau Trail%' THEN length END) AS sum_of_length3,
+  SUM(CASE WHEN trail_name LIKE '%Hong Kong Trail%' THEN length END) AS sum_of_length4
+FROM
+  Trail
+WHERE
+  trail_name LIKE '%MacLehose Trail%'
+  OR trail_name LIKE '%Wilson Trail%'
+  OR trail_name LIKE '%Lantau Trail%'
+  OR trail_name LIKE '%Hong Kong Trail%'
+'''
+'''
+SELECT park_name, area
+FROM Park
+WHERE area = (SELECT MAX(area) FROM Park)
+UNION ALL
+SELECT park_name, area
+FROM Park
+WHERE area = (SELECT MIN(area) FROM Park)
+'''
+
+'''
+SELECT
+  p.park_name AS park_name1,
+  COUNT(t.trail_id) AS number_of_trail1
+FROM
+  Park AS p
+JOIN
+  Trail AS t
+ON
+  t.park_id = p.park_id
+GROUP BY
+  p.park_name
+ORDER BY
+  number_of_trail1 DESC
+LIMIT 2;
+'''

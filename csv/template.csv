@@ -1,10 +1,46 @@
-template_id,template
-TP01,"The {trail_name} is located in {park_name} Country Park, situated in {region}. The hiking trail has a difficulty level of {difficulty} stars and spans a total length of {length} km. The estimated time for completing the trip is {time} hours. The gradient level and surface condition level of the trail are {gradient} and {surface} respectively. Overall, the hiking experience is rated {star} star(s). Hikers can find detailed information on popular photo spots and the diverse natural scenery the trail offers in the following introduction: {summary}."
-TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length}km and takes {time} hours to complete, but shorter routes are available."
-TP03,"The MacLehose Trail ({sum_of_length1}km), Wilson Trail ({sum_of_length2}km), Lautau Trail ({sum_of_length3}km) and Hong Kong Trail ({sum_of_length4}km) are the four official hiking trails in Hong Kong with the highest degree of restoration, the longest route mileage, and the best overall scenery."
-TP04,"At present, there are 24 country parks covering {total_area} hectares, accounting for 39% of the overall land area of Hong Kong. The {park_name1} Country Park has the largest area of {area1} hectares and {park_name2} Country Park has the smallest area of {area2} hectares."
-TP05,"The {park_name1} Country Park has the greatest number of hiking trails in the Country Park with a total of {number_of_trail1}, meanwhile, the {park_name2} Country Park has the second most number of hiking trails with {number_of_trail1}."
-TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In {year1}, the FSD responded to {total_rescue_of_year1} incidents, while in {year2} the figure increased to {total_rescue_of_year2}. This represents a {growth_rate}% increase over the {total_rescue_of_year1} incidents in {year1}."
-TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park and { park_name3} Country Park with {total_rescues2} and {total_rescues3} respectively."
-TP08,"The {park_name1} Country Park had the highest number of injuries in the last 3 years with {total_injury} people injured. The {park_name2} Country Park had the highest number of fatalities in the last 3 years in rescue accidents, with {total_death} people losing their lives in the incident."
-TP09,"Comparing the figures for {year1} and {year2}, the {park_name1} Country Park experienced the highest increase of rescue accidents, from {rescue_count_of_year1} cases in {year1} to {rescue_count_of_year2} cases in {year2}. Similarly, the {park_name2} Country Park had the second highest increase of rescue accidents."
+template_id,template,sql_text
+TP01,"The {trail_name} is located in {park_name} Country Park, situated in {region}. The hiking trail has a difficulty level of {difficulty} stars and spans a total length of {length} km. The estimated time for completing the trip is {time} hours. The gradient level and surface condition level of the trail are {gradient} and {surface} respectively. Overall, the hiking experience is rated {star} star(s). Hikers can find detailed information on popular photo spots and the diverse natural scenery the trail offers in the following introduction: {summary}.","SELECT t.trail_name, p.park_name, t.region, t.difficulty, t.length, t.time, t.gradient, t.surface, t.star, t.summary
+        FROM Trail t
+        JOIN Park p ON t.park_id = p.park_id
+        WHERE t.trail_name = ?"
+TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length}km and takes {time} hours to complete, but shorter routes are available.","SELECT t.trail_name, p.park_name, t.length, t.time
+FROM Trail AS t
+JOIN Park AS p ON t.park_id = p.park_id
+WHERE t.length = (SELECT MAX(length) FROM Trail)"
+TP03,"The MacLehose Trail ({sum_of_length1}km), Wilson Trail ({sum_of_length2}km), Lantau Trail ({sum_of_length3}km) and Hong Kong Trail ({sum_of_length4}km) are the four official hiking trails in Hong Kong with the highest degree of restoration, the longest route mileage, and the best overall scenery.","SELECT
+  SUM(CASE WHEN trail_name LIKE '%MacLehose Trail%' THEN length END) AS sum_of_length1,
+  SUM(CASE WHEN trail_name LIKE '%Wilson Trail%' THEN length END) AS sum_of_length2,
+  SUM(CASE WHEN trail_name LIKE '%Lantau Trail%' THEN length END) AS sum_of_length3,
+  SUM(CASE WHEN trail_name LIKE '%Hong Kong Trail%' THEN length END) AS sum_of_length4
+FROM
+  Trail
+WHERE
+  trail_name LIKE '%MacLehose Trail%'
+  OR trail_name LIKE '%Wilson Trail%'
+  OR trail_name LIKE '%Lantau Trail%'
+  OR trail_name LIKE '%Hong Kong Trail%'"
+TP04,"At present, there are 24 country parks covering {total_area} hectares, accounting for 39% of the overall land area of Hong Kong. The {park_name1} Country Park has the largest area of {area1} hectares and {park_name2} Country Park has the smallest area of {area2} hectares.","SELECT park_name, area
+FROM Park
+WHERE area = (SELECT MAX(area) FROM Park)
+UNION ALL
+SELECT park_name, area
+FROM Park
+WHERE area = (SELECT MIN(area) FROM Park)"
+TP05,"The {park_name1} Country Park has the greatest number of hiking trails in the Country Park with a total of {number_of_trail1}, meanwhile, the {park_name2} Country Park has the second most number of hiking trails with {number_of_trail1}.","SELECT
+  p.park_name AS park_name1,
+  COUNT(t.trail_id) AS number_of_trail1
+FROM
+  Park AS p
+JOIN
+  Trail AS t
+ON
+  t.park_id = p.park_id
+GROUP BY
+  p.park_name
+ORDER BY
+  number_of_trail1 DESC
+LIMIT 2"
+TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In 2020, the FSD responded to {total_rescue_of_2020} incidents, while in 2022 the figure increased to {total_rescue_of_2022}. This represents a {growth_rate}% increase over the {total_rescue_of_2022} incidents in 2022.",
+TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park and {park_name3} Country Park with {total_rescues2} and {total_rescues3} respectively.",
+TP08,"The {park_name1} Country Park had the highest number of injuries in the last 3 years with {total_injury} people injured. The {park_name2} Country Park had the highest number of fatalities in the last 3 years in rescue accidents, with {total_death} people losing their lives in the incident.",
+TP09,"Comparing the figures for 2021 and 2022, the {park_name1} Country Park experienced the highest increase of rescue accidents, from {rescue_count_of_2021} cases in 2021 to {rescue_count_of_2022} cases in 2022. Similarly, the {park_name2} Country Park had the second highest increase of rescue accidents.",
