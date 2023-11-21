@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+import pandas as pd
 
 try:
     conn = sqlite3.connect('data/hiking.db')
@@ -10,10 +11,19 @@ cursor = conn.cursor()
 
 # 执行 SQL
 cursor.execute("""
-    SELECT t.trail_name, p.park_name, t.region, t.difficulty, t.length, t.time, t.star
-    FROM Trail t
-    JOIN Park p ON t.park_id = p.park_id
-    WHERE t.trail_id = 'T03'
+    SELECT *
+    FROM Template
 """)
-row = cursor.fetchone()
-print(row)
+row = cursor.fetchall()
+
+tText = row[0][1]
+print(tText)
+Ta = tText.split()
+print(Ta)
+Fin = ""
+for word in Ta:
+    if word[0]=='{' :
+        Fin = Fin + ' wooohuuuu'
+    else:
+        Fin = Fin +" "+ word
+print(Fin)
