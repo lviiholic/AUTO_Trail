@@ -19,15 +19,12 @@ def templateAny(templateIndex, vA):
     row = cursor.fetchone()
     tText = row[0]
     Ta = tText.split()
-    print(Ta)
     Fin = ""
     vIndex = 0
     for word in Ta:
         if word[0]=='{' :
-            Fin = Fin + " " + vA[vIndex]
+            Fin = Fin + " "+ str(vA[vIndex])
             vIndex = vIndex + 1
         else:
             Fin = Fin +" "+ word
-    print(Fin)
-
-templateAny('TP01', ['A Trail', 'B park', 'C region', '2', '2','10','3','2','2','afikehfuifh'])
+    return Fin;
