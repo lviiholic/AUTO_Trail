@@ -13,8 +13,10 @@ def index():
     cursor.close()
     conn.close()
     temps=[]
-    vA = getVa('TP02')
-    temps.append(templateAny('TP02',vA[0]))
+    for index in range(2,9):
+        TemIndex = 'TP0'+str(index)
+        vA = getVa(TemIndex)
+        temps.append(templateAny(TemIndex,vA))
 
     return render_template('index.html', rows=rows,temps = temps)
     
@@ -32,7 +34,6 @@ def choose():
     """,(value,))
     row = cursor.fetchone()
     conn.close()
-    print(row)
     result = row
     rText = templateAny('TP01', row)
     return jsonify({"result": rText})

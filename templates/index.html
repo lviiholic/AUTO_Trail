@@ -18,18 +18,14 @@
                   var select = jQuery('#trails')
                   var Temp1 = jQuery('#template1')
                   form.submit(function(event) {
-                  event.preventDefault();  // 阻止表单的默认提交行为
-                  var new_value = select.val();  // 获取输入框中的新值
-                  // 发送Ajax请求到后端路由 
+                  event.preventDefault(); 
+                  var new_value = select.val();  
                   $.ajax({
                     url: '/choose',
                     type: 'POST',
                     dataType: 'json',
                     data: {new_value: new_value},
                     success: function(response) {
-                      // 更新当前值
-                      //$("#current-value").text(response.new_value);
-                      console.log(response.result)
                       Temp1.text(response.result)
                     },
                     error: function(error) {
@@ -80,39 +76,39 @@
 <hr>
 <h2 id="the-big-four-trails">The Big Four Trails </h2>
 <blockquote>
-<p>template 3</p>
+<p>{{temps[1]}}</p>
 </blockquote>
 <hr>
 <h2 id="general-information-on-country-parks">General Information on Country Parks </h2>
 <blockquote>
-<p>template 4</p>
+<p>{{temps[2]}}</p>
 </blockquote>
 <hr>
 <h2 id="distribution-of-hiking-trails-in-each-park">Distribution of Hiking Trails in Each Park </h2>
 <blockquote>
-<p>template 5</p>
+<p>{{temps[3]}}</p>
 </blockquote>
 <hr>
 <h1 id="raising-awareness-of-hiking-safety">Raising Awareness of Hiking Safety </h1>
 <p>Country parks provide hiking trails of various levels of difficulty for public use and enjoyment. Figures from the Fire Services Department (FSD) show that the number of rescue accidents in country parks has been on the rise over the past three years. Due to hiking accidents, some parks pose potential hazards. Hikers can use this information to plan and promote safety.</p>
 <h2 id="overview-of-the-rescue-accidents-in-country-parks">Overview of the Rescue Accidents in Country Parks </h2>
 <blockquote>
-<p>template 6</p>
+      <p>{{temps[4]}}</p>
 </blockquote>
 <hr>
 <h2 id="country-parks-with-the-highest-number-of-rescue-requests">Country Parks with the Highest Number of Rescue Requests </h2>
 <blockquote>
-<p>template 7</p>
+      <p>{{temps[5]}}</p>
 </blockquote>
 <hr>
 <h2 id="country-parks-with-highest-number-of-injuries-and-fatalities">Country Parks with Highest Number of Injuries and Fatalities </h2>
 <blockquote>
-<p>template 8</p>
+      <p>{{temps[6]}}</p>
 </blockquote>
 <hr>
 <h2 id="country-parks-with-the-highest-increase-in-accidents-in-the-past-three-years">Country Parks with the Highest Increase in Accidents in the Past Three Years </h2>
 <blockquote>
-<p>template 9</p>
+      <p>{{temps[7]}}</p>
 </blockquote>
 <hr>
 
