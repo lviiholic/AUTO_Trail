@@ -13,7 +13,7 @@ def index():
     cursor.close()
     conn.close()
     temps=[]
-    for index in range(2,9):
+    for index in range(2,10):
         TemIndex = 'TP0'+str(index)
         vA = getVa(TemIndex)
         temps.append(templateAny(TemIndex,vA))
@@ -32,7 +32,7 @@ def choose():
         JOIN Park p ON t.park_id = p.park_id
         WHERE t.trail_name = ?
     """,(value,))
-    row = cursor.fetchone()
+    row = cursor.fetchall()
     conn.close()
     result = row
     rText = templateAny('TP01', row)
