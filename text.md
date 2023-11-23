@@ -9,13 +9,17 @@ However, some people lack safety awareness, resulting in frequent accidents. In 
 
 Hong Kong has a vivid hiking culture. From short nature trails to steep mountains, its Country Parks have something for everyone. These hikes cover Hong Kong Island, Kowloon, New Territories, Sai Kung, and the Outlying Islands. 
 
+![cover2](static/figure/cover2.jpg)
+
 ## Basic Information for Each Hiking Trail
 
 > template 1 
 
+
 > **Remarks**: A 5-star system is adopted for assessing the difficulty levels of hiking routes. 5-star represents the most difficult one. The assessment of individual trail conditions, including the “length”, “time required to finish the whole trip”, “gradient” and “surface condition” is tabulated.
 
 ![Trail Difficulty Level Reference](static/figure/image-1.png)
+*Source: https://www.hiking.gov.hk/content/about_hiking*
 
 ---
 
@@ -41,6 +45,8 @@ Hong Kong has a vivid hiking culture. From short nature trails to steep mountain
 
 # Raising Awareness of Hiking Safety 
 Country parks provide hiking trails of various levels of difficulty for public use and enjoyment. Figures from the Fire Services Department (FSD) show that the number of rescue accidents in country parks has been on the rise over the past three years. Due to hiking accidents, some parks pose potential hazards. Hikers can use this information to plan and promote safety.
+
+![cover3](static/figure/cover3.jpg)
 
 During the three-year epidemic period, Hong Kong people flocked to country parks for hiking, leading to a sharp increase in the number of rescue incidents.
 
@@ -74,7 +80,7 @@ During the three-year epidemic period, Hong Kong people flocked to country parks
 
 ## Accident Black Spots
 
-Statistics show that the Ma On Shan Country Park is the black spot of mountain climbing rescue accidents, with the number of cases and the number of injuries being the highest among the country parks in Hong Kong.
+In view of the hiking accidents in recent years, AFCD has erected warning signs at appropriate locations to alert hikers not to enter areas with potential hazards.
 
 | **Country Park Name** | **Name of location** |
 |-----------------------|----------------------|
