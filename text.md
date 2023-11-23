@@ -19,6 +19,7 @@ Hong Kong has a vivid hiking culture. From short nature trails to steep mountain
 > **Remarks**: A 5-star system is adopted for assessing the difficulty levels of hiking routes. 5-star represents the most difficult one. The assessment of individual trail conditions, including the “length”, “time required to finish the whole trip”, “gradient” and “surface condition” is tabulated.
 
 ![Trail Difficulty Level Reference](static/figure/image-1.png)
+*Source: https://www.hiking.gov.hk/content/about_hiking*
 
 ---
 
