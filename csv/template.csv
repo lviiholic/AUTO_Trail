@@ -63,7 +63,7 @@ CROSS JOIN
 FROM Rescue
 WHERE year = 2022
 GROUP by year) as t2)"
-TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park and {park_name3} Country Park with {total_rescues2} and {total_rescues3} respectively.","SELECT park_name, total_res
+TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park with {total_rescues2} and the {park_name3} Country Park with {total_rescues3}.","SELECT park_name, total_res
 FROM (
 	SELECT p.park_name, p.park_id, sum(r.rescue_count) as total_res
 	FROM Park as p, Rescue as r
