@@ -19,16 +19,19 @@ def templateAny(templateIndex, vA):
     row = cursor.fetchone()
     tText = row[0]
     Ta = tText.split()
-    
-    cursor.execute(row[1])
+
     Fin = ""
-    vIndex = 0
+    vx=0
+    vy=0
     for word in Ta:
         if word[0]=='{' :
             print(word)
-            print(vA[vIndex])
-            Fin = Fin + " "+ str(vA[vIndex])
-            vIndex = vIndex + 1
+            print(vA[vx][vy])
+            Fin = Fin + " "+ str(vA[vx][vy])
+            vy=vy+1
+            if vy>=len(vA[0]):
+                vy=0
+                vx=vx+1
         else:
             Fin = Fin +" "+ word
     return Fin;
