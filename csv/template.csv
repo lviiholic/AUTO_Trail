@@ -3,7 +3,7 @@ TP01,"The {trail_name} is located in {park_name} Country Park, situated in {regi
         FROM Trail t
         JOIN Park p ON t.park_id = p.park_id
         WHERE t.trail_name = ?"
-TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length}km and takes {time} hours to complete, but shorter routes are available.","SELECT t.trail_name, p.park_name, t.length, t.time
+TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length} km and takes {time} hours to complete, but shorter routes are available.","SELECT t.trail_name, p.park_name, t.length, t.time
 FROM Trail AS t
 JOIN Park AS p ON t.park_id = p.park_id
 WHERE t.length = (SELECT MAX(length) FROM Trail)"
