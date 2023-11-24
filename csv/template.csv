@@ -47,7 +47,7 @@ GROUP BY
 ORDER BY
   number_of_trail1 DESC
 LIMIT 2"
-TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In 2020, the FSD responded to {total_rescue_of_year1} incidents, while in 2022 the figure increased to {total_rescue_of_year2}. This represents a {growth_rate} % increase.","SELECT *, (((res_2022*1.0-res_2020*1.0)/res_2020*1.0)*100)
+TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In 2020, the FSD responded to {total_rescue_of_year1} incidents, while in 2022 the figure increased to {total_rescue_of_year2} . This represents a {growth_rate} % increase.","SELECT *, (((res_2022*1.0-res_2020*1.0)/res_2020*1.0)*100)
 FROM
 (SELECT sum(rescue_count) , sum(injury_count), sum(death_count)
 FROM Rescue)
