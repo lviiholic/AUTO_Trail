@@ -25,8 +25,6 @@ def templateAny(templateIndex, vA):
     vy=0
     for word in Ta:
         if word[0]=='{' :
-            print(word)
-            print(vA[vx][vy])
             Fin = Fin + " "+ str(vA[vx][vy])
             vy=vy+1
             if vy>=len(vA[0]):

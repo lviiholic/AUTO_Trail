@@ -1,21 +1,17 @@
 import sqlite3
 from sqlite3 import Error
-import pandas as pd
-conn = sqlite3.connect('data/hiking.db')
+try:
+    conn = sqlite3.connect('data/hiking.db')
+except Error as e:
+    print(e)
+
 cursor = conn.cursor()
+#get tID input
+tID = 'TP10000'
 cursor.execute("""
-    SELECT template
-    FROM Template
-    WHERE template_id = ?
-""",('TP09',))
+    SELECT t.trail_name, p.park_name, t.region, t.difficulty, t.length, t.time, t.star
+    FROM Trail t
+    JOIN Park p ON t.park_id = p.park_id
+    WHERE t.trail_id = ?
+""",(tID,))
 row = cursor.fetchone()
-tText = row[0]
-Ta = tText.split()
-Fin = ""
-vIndex = 0
-for word in Ta:
-    if word[0]=='{':
-        print(word)
-        vIndex = vIndex + 1
-    else:
-        Fin = Fin +" "+ word
