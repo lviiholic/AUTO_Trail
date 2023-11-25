@@ -1,0 +1,583 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "QuVr0KIQXK5D"
+      },
+      "source": [
+        "# AIDM7360 Big Data Management and Analytics\n",
+        "## Linear regression and MongoDB Exercise\n",
+        "**Valid for Class Participation score: 10% of final score**\n",
+        "\n",
+        "Please execute the following notebook, filling the missing data as appropriate, and answer the questions at the end of the notebook.\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "jw6MWM9hmPRF"
+      },
+      "source": [
+        "## Install and import the libraries"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "zG9CKK3nmPRE"
+      },
+      "outputs": [],
+      "source": [
+        "# Install library using pip package in the current Jupyter kernel\n",
+        "import sys\n",
+        "!{sys.executable} -m pip install 'pymongo[srv]'"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "scrolled": true,
+        "id": "uePVvjCOmPRF"
+      },
+      "outputs": [],
+      "source": [
+        "import pymongo"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "TkkqZs1smPRG"
+      },
+      "source": [
+        "## Connect to the server\n",
+        "\n",
+        "Set the connection to the values provided in the MongoDB interface and appropriate user and password. Get the values from your MongoDB account after loading the sample data as intreduce in previous lecture."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "LPXJBpl7mPRH"
+      },
+      "outputs": [],
+      "source": [
+        "client = pymongo.MongoClient(\"mongodb+srv://USER:PASSWORD@SERVER/?retryWrites=true&w=majority\") #Replace USER, PASSWORD, SERVER with the values gathered from the MongoDB interface"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "C7amWWADmPRH"
+      },
+      "source": [
+        "## Find all the databases\n",
+        "Returns the ones we are authorized to view"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "WO0V1ys5mPRI"
+      },
+      "outputs": [],
+      "source": [
+        "client.list_database_names()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "yzX8ouy3mPRJ"
+      },
+      "source": [
+        "## Select sample_weatherdata"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "BdUkO3osmPRJ"
+      },
+      "outputs": [],
+      "source": [
+        "db = client.sample_weatherdata"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "xQ4tmC8_mPRK"
+      },
+      "source": [
+        "## Check the collections and select one\n",
+        "\n",
+        "Collections are like tables in relational databases"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "k87TlVkDmPRK"
+      },
+      "outputs": [],
+      "source": [
+        "db.list_collection_names()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Set the collection variable to the appropriate table from the database."
+      ],
+      "metadata": {
+        "id": "CRX_Z4hcYRns"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "rgz77w5hmPRL"
+      },
+      "outputs": [],
+      "source": [
+        "collection = db. #Select the appropriate collection"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "MRi5TWyWmPRN"
+      },
+      "source": [
+        "## Select the content of multiple documents"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Set the `yourStudentID` variable with your student ID."
+      ],
+      "metadata": {
+        "id": "fzc-sVRnYC9L"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "yourStudentID = 42 #Replace with your student ID\n",
+        "\n",
+        "if yourStudentID % 2 == 0:\n",
+        "    windType = 'V'\n",
+        "else:\n",
+        "    windType = 'C'"
+      ],
+      "metadata": {
+        "id": "qAmPqCE3LSYY"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "1bPB8KHzmPRO"
+      },
+      "outputs": [],
+      "source": [
+        "airTempList = []\n",
+        "seaTempList = []\n",
+        "\n",
+        "# The following query will extract all the weather stations' data from the collection\n",
+        "allStations = collection.find({})"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "_1kVF-ovmPRO"
+      },
+      "outputs": [],
+      "source": [
+        "for station in allStations:\n",
+        "    try:\n",
+        "      #Extract Air and Sea Temperatures from the collection\n",
+        "      airTemp = float(station['airTemperature']['value'])\n",
+        "      seaTemp = float(station['seaSurfaceTemperature']['value'])\n",
+        "    except:\n",
+        "      continue\n",
+        "\n",
+        "    #Data Cleaning and Selection\n",
+        "    if (station['wind']['type'] == windType) and (airTemp < 50) and (seaTemp < 50):\n",
+        "      airTempList.append(airTemp)\n",
+        "      seaTempList.append(seaTemp)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Plot the data"
+      ],
+      "metadata": {
+        "id": "Gld2TpqcUoIE"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "0DZu-PeXEvpi"
+      },
+      "outputs": [],
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "%matplotlib inline\n",
+        "import numpy as np\n",
+        "\n",
+        "x = np.array(airTempList) #Air Temperatures\n",
+        "y = np.array(seaTempList) #Sea Temperatures\n",
+        "plt.scatter(x, y);"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Linear Regression\n",
+        "\n",
+        "With the data in place, we can start the data analysis process."
+      ],
+      "metadata": {
+        "id": "szaleD2IVEOF"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "wn_-wsaFEvpm"
+      },
+      "source": [
+        "### Choose a class of model\n",
+        "\n",
+        "Let's load the linear regression model from scikit-learn"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "bTgUOnGwEvpm"
+      },
+      "outputs": [],
+      "source": [
+        "from sklearn.linear_model import LinearRegression"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-MiYbGkAEvpn"
+      },
+      "source": [
+        "### Set the model hyperparameters\n",
+        "\n",
+        "For our linear regression, we can instantiate the ``LinearRegression`` class and specify that we would like to fit the intercept using the ``fit_intercept`` hyperparameter."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "6VBJJ59CEvpo"
+      },
+      "outputs": [],
+      "source": [
+        "model = LinearRegression(fit_intercept=True)\n",
+        "model"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "qElp2LWWEvpp"
+      },
+      "source": [
+        "### Arrange data into a features matrix and target vector\n",
+        "\n",
+        "Previously we detailed the Scikit-Learn data representation, which requires a two-dimensional features matrix and a one-dimensional target array.\n",
+        "Here our target variable ``y`` is already in the correct form (a length-``n_samples`` array), but we need to massage the data ``x`` to make it a matrix of size ``[n_samples, n_features]``.\n",
+        "In this case, this amounts to a simple reshaping of the one-dimensional array:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "oZFDgvAYEvpq"
+      },
+      "outputs": [],
+      "source": [
+        "X = x[:, np.newaxis]\n",
+        "X.shape"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "NFvEkAzDEvpq"
+      },
+      "source": [
+        "### Fit the model to the data\n",
+        "\n",
+        "Now it is time to apply our model to data.\n",
+        "This can be done with the ``fit()`` method of the model:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "fDXNN0SREvpq"
+      },
+      "outputs": [],
+      "source": [
+        "model.fit(X, y)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "BVHHZ7a9Evpr"
+      },
+      "source": [
+        "This ``fit()`` command causes a number of model-dependent internal computations to take place, and the results of these computations are stored in model-specific attributes that the user can explore.\n",
+        "In Scikit-Learn, by convention all model parameters that were learned during the ``fit()`` process have trailing underscores; for example in this linear model, we have the following:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "ScJ7Irj0Evpr"
+      },
+      "outputs": [],
+      "source": [
+        "# Beta-1\n",
+        "model.coef_"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Fn-2j8y7Evps"
+      },
+      "outputs": [],
+      "source": [
+        "# Beta-0\n",
+        "model.intercept_"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "A8gs47EhEvps"
+      },
+      "source": [
+        "These two parameters represent the slope and intercept of the simple linear fit to the data.\n",
+        "Comparing to the data definition, we see that they are very close to the input slope and intercept."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "MZv-kQdAEvps"
+      },
+      "source": [
+        "#### 5. Predict labels for unknown data\n",
+        "\n",
+        "Once the model is trained, the main task of supervised machine learning is to evaluate it based on what it says about new data that was not part of the training set.\n",
+        "In Scikit-Learn, this can be done using the ``predict()`` method.\n",
+        "For the sake of this example, our \"new data\" will be a grid of *x* values, and we will ask what *y* values the model predicts:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Q66lgAUiEvps"
+      },
+      "outputs": [],
+      "source": [
+        "xfit = np.linspace(-10, 50)\n",
+        "xfit"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "GyPRFrYfEvpt"
+      },
+      "source": [
+        "As before, we need to coerce these *x* values into a ``[n_samples, n_features]`` features matrix, after which we can feed it to the model:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "mGTJxoBSEvpt"
+      },
+      "outputs": [],
+      "source": [
+        "Xfit = xfit[:, np.newaxis]\n",
+        "yfit = model.predict(Xfit)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "eAs4wySQEvpt"
+      },
+      "source": [
+        "Finally, let's visualize the results by plotting first the raw data, and then this model fit:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "Vjhug0KBEvpt"
+      },
+      "outputs": [],
+      "source": [
+        "plt.scatter(x, y)\n",
+        "plt.plot(xfit, yfit, 'r');"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Questions\n",
+        "Answer the questions by reporting the data analysis results.\n"
+      ],
+      "metadata": {
+        "id": "jaZLM2VzWipc"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## How many samples are in your dataset?"
+      ],
+      "metadata": {
+        "id": "GQU8WpxAZCdT"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "nUkyetzCZHp6"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Is the slope positive or negative?\n"
+      ],
+      "metadata": {
+        "id": "yG_V59ZeW7NS"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "1ah_6E8WXBxz"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## How are the variables correlated, positively or negatively?\n"
+      ],
+      "metadata": {
+        "id": "m0iwq4_PW7IL"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "IdnwWwt5XCWS"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Where is your model y-intercept Beta-0?\n"
+      ],
+      "metadata": {
+        "id": "-NEw6s-4W7CD"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "V62NNcgOXC2b"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## What is the value of slope Beta-1?"
+      ],
+      "metadata": {
+        "id": "PN1czZc-W65L"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "Fw6aI-7LXDYj"
+      }
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8.8"
+    },
+    "colab": {
+      "provenance": []
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
