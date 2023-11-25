@@ -3,6 +3,7 @@ import sqlite3
 from templateHiking import templateAny, getVa
 import pandas as pd
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import plotly.express as px
 
 app = Flask(__name__)
