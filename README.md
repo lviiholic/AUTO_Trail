@@ -10,7 +10,7 @@ Remarks:
 - data folder -> hiking database and backup databases
 - static folder -> css & figure in html
 - templates folder -> html template
-- ui folder -> editer GUI
+- ui folder -> editor GUI
 - buildDB.py -> create hiking database and tables and insert csv into tables
 - grabingTrail.ipynb -> get trail.csv data
 - plotDataviz.ipynb -> create plots used in html
