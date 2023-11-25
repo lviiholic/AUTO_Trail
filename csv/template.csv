@@ -3,7 +3,7 @@ TP01,"The {trail_name} is located in {park_name} Country Park, situated in {regi
         FROM Trail t
         JOIN Park p ON t.park_id = p.park_id
         WHERE t.trail_name = ?"
-TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length}km and takes {time} hours to complete, but shorter routes are available.","SELECT t.trail_name, p.park_name, t.length, t.time
+TP02,"The longest country trail in Hong Kong is the {trail_name}, located in {park_name} Country Park. It spans {length} km and takes {time} hours to complete, but shorter routes are available.","SELECT t.trail_name, p.park_name, t.length, t.time
 FROM Trail AS t
 JOIN Park AS p ON t.park_id = p.park_id
 WHERE t.length = (SELECT MAX(length) FROM Trail)"
@@ -47,7 +47,7 @@ GROUP BY
 ORDER BY
   number_of_trail1 DESC
 LIMIT 2"
-TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In 2020, the FSD responded to {total_rescue_of_year1} incidents, while in 2022 the figure increased to {total_rescue_of_year2}. This represents a {growth_rate} % increase.","SELECT *, (((res_2022*1.0-res_2020*1.0)/res_2020*1.0)*100)
+TP06,"Over the past three years, the FSD has responded to {total_rescues} rescue incidents related to hiking and climbing in country parks. These cases have recorded {total_injuries} injuries and {total_deaths} deaths in total. In 2020, the FSD responded to {total_rescue_of_year1} incidents, while in 2022 the figure increased to {total_rescue_of_year2} . This represents a {growth_rate} % increase.","SELECT *, (((res_2022*1.0-res_2020*1.0)/res_2020*1.0)*100)
 FROM
 (SELECT sum(rescue_count) , sum(injury_count), sum(death_count)
 FROM Rescue)
@@ -63,7 +63,7 @@ CROSS JOIN
 FROM Rescue
 WHERE year = 2022
 GROUP by year) as t2)"
-TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park and {park_name3} Country Park with {total_rescues2} and {total_rescues3} respectively.","SELECT park_name, total_res
+TP07,"The {park_name1} Country Park received the highest number of rescue requests involving mountain climbing, with {total_rescues1} cases. The number of rescue accidents was also higher in the {park_name2} Country Park with {total_rescues2} cases and the {park_name3} Country Park with {total_rescues3} cases.","SELECT park_name, total_res
 FROM (
 	SELECT p.park_name, p.park_id, sum(r.rescue_count) as total_res
 	FROM Park as p, Rescue as r
