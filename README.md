@@ -6,7 +6,7 @@ Run server.py to start the flask web application. (open url: http://127.0.0.1:50
 Run editor.py to start the GUI database editor.
 
 Remarks:
-- csv folder -> row csv file
+- csv folder -> raw csv file
 - data folder -> hiking database and backup databases
 - static folder -> css & figure in html
 - templates folder -> html template
@@ -14,7 +14,7 @@ Remarks:
 - buildDB.py -> create hiking database and tables and insert csv into tables
 - grabingTrail.ipynb -> get trail.csv data
 - plotDataviz.ipynb -> create plots used in html
-- templateHiking.py -> a function automatically identifies placeholders in templates for inserting SQL query data
+- templateHiking.py -> a function automatically identifies placeholders in templates for inserting query data
 - text.md -> report content
 - tg.py -> testground
 - test.py -> a template test file
