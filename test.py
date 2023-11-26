@@ -52,7 +52,7 @@ template = "The {trail_name} is located in the {park_name} country park in the {
 filled_template = generate_template(template, data)
 print(filled_template)
 
-
+# test sql
 '''SELECT t.trail_name, p.park_name, t.length, t.time
 FROM Trail AS t
 JOIN Park AS p ON t.park_id = p.park_id,
