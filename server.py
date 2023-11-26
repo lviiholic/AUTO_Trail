@@ -3,6 +3,7 @@ import sqlite3
 from templateHiking import templateAny, getVa
 import pandas as pd
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import plotly.express as px
 
 app = Flask(__name__)
@@ -118,7 +119,7 @@ def renderTem6():
 
     # Close the database connection
     conn.close()
-
+    plt.cla()
     # Create the line chart
     plt.bar(rescue_stats['year'], rescue_stats['total_rescue_count'], label='Rescue', color='skyblue')
     plt.bar(rescue_stats['year'], rescue_stats['total_injury_count'], label='Injury', color='orange')
@@ -154,7 +155,7 @@ def renderTem7():
 
     # 关闭数据库连接
     conn.close()
-
+    plt.cla()
     # 创建条形图
     plt.bar(park_rescue_stats['park_name'], park_rescue_stats['total_rescue_count'], color='skyblue')
 

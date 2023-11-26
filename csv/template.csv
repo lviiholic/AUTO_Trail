@@ -33,7 +33,7 @@ CROSS JOIN
 FROM Park
 WHERE area = (SELECT MIN(area) FROM Park)
 )"
-TP05,"The {park_name1} Country Park has the greatest number of hiking trails in the Country Park with a total of {number_of_trail1}, meanwhile, the {park_name2} Country Park has the second most number of hiking trails with {number_of_trail1}.","SELECT
+TP05,"The {park_name1} Country Park has the greatest number of hiking trails in the Country Park with a total of {number_of_trail1} , meanwhile, the {park_name2} Country Park has the second most number of hiking trails with {number_of_trail1} .","SELECT
   p.park_name AS park_name1,
   COUNT(t.trail_id) AS number_of_trail1
 FROM
