@@ -18,4 +18,5 @@ Remarks:
 - text.md -> report content
 - tg.py -> testground
 - test.py -> a template test file
-- Ui_query -> a gui test file
+- Ui_query.py -> a gui test file
+- Q_withGUI.py -> gui file
