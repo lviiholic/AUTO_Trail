@@ -195,6 +195,8 @@ class Ui_MainWindow(object):
 
         self.searchBtn.clicked.connect(self.trailQurey)
         self.delBtn.clicked.connect(self.trailDel)
+        self.delBtn.setStyleSheet('background-color: red;')
+        self.delBtn_2.setStyleSheet('background-color: red;')
         self.searchBtn_2.clicked.connect(self.resQurey)
         self.delBtn_2.clicked.connect(self.resDel)
         self.subBtn.clicked.connect(self.submit_insertTrail)
