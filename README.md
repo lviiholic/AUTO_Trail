@@ -6,7 +6,7 @@ Run server.py to start the flask web application. (open url: http://127.0.0.1:50
 Run editor.py to start the GUI database editor.
 
 Remarks:
-- csv folder -> raw csv file
+- csv folder -> raw dataset csv file
 - data folder -> hiking database and backup databases
 - static folder -> css & figure in html
 - templates folder -> html template
