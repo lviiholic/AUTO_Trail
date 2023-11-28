@@ -7,16 +7,13 @@ Run editor.py to start the GUI database editor.
 
 Remarks:
 - csv folder -> raw dataset csv file
-- data folder -> hiking database and backup databases
+- data folder -> hiking database
 - static folder -> css & figure in html
 - templates folder -> html template
 - ui folder -> editor GUI
-- buildDB.py -> create hiking database and tables and insert csv into tables
-- grabingTrail.ipynb -> get trail.csv data
-- plotDataviz.ipynb -> create plots used in html
+- buildDB.py -> create hiking database and tables, insert csv into tables
+- grabingTrail.ipynb -> a web crawler to get trail.csv data
+- plotDataviz.ipynb -> create plots for data visualization
 - templateHiking.py -> a function automatically identifies placeholders in templates for inserting query data
-- text.md -> report content
-- tg.py -> testground
-- test.py -> a template test file
-- Ui_query.py -> a gui test file
-- Q_withGUI.py -> gui file
+- text.md -> raw report content
+- e2.py -> GUI file
